@@ -1,4 +1,4 @@
-package com.kpi.jakartaeecource.converter;
+package com.kpi.jakartaeecource.api.converter;
 
 import com.kpi.jakartaeecource.api.dto.ExchangeRateDto;
 import com.kpi.jakartaeecource.model.ExchangeRate;

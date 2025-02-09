@@ -1,20 +1,24 @@
 package com.kpi.jakartaeecource.service;
 
 import com.kpi.jakartaeecource.api.NbuApiClient;
+import com.kpi.jakartaeecource.api.converter.ExchangeRateConverter;
 import com.kpi.jakartaeecource.api.dto.ExchangeRateDto;
-import com.kpi.jakartaeecource.converter.ExchangeRateConverter;
 import com.kpi.jakartaeecource.model.ExchangeRate;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Named
 @ApplicationScoped
 public class ExchangeRateService {
+
+    private static final Logger LOGGER = Logger.getLogger(ExchangeRateService.class.getName());
 
     private NbuApiClient nbuApiClient;
 
@@ -26,18 +30,31 @@ public class ExchangeRateService {
         this.nbuApiClient = nbuApiClient;
     }
 
-    public List<ExchangeRate> getExchangeRate() throws Exception {
-        List<ExchangeRateDto> exchangeRateDtos = nbuApiClient.fetchCurrentRates();
-        return ExchangeRateConverter.toExchangeRates(exchangeRateDtos);
+    public List<ExchangeRate> getExchangeRate() {
+        try {
+            List<ExchangeRateDto> exchangeRates = nbuApiClient.fetchCurrentRates();
+            return ExchangeRateConverter.toExchangeRates(exchangeRates);
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "Error fetching current exchange rates", e);
+            throw new RuntimeException("Failed to fetch current exchange rates", e);
+        }
     }
 
-    public List<ExchangeRate> getHistoryRates(String currencyCode) throws Exception {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-        Calendar calendar = Calendar.getInstance();
-        String endDate = dateFormat.format(calendar.getTime());
-        calendar.add(Calendar.YEAR, -1);
-        String startDate = dateFormat.format(calendar.getTime());
-        List<ExchangeRateDto> exchangeRateDtos = nbuApiClient.fetchHistoricalRates(currencyCode, startDate, endDate);
-        return ExchangeRateConverter.toExchangeRates(exchangeRateDtos);
+    public List<ExchangeRate> getHistoryRates(String currencyCode, LocalDate startDate,  LocalDate endDate) {
+        try {
+            validateDates(startDate, endDate);
+
+            List<ExchangeRateDto> exchangeRates = nbuApiClient.fetchHistoricalRates(currencyCode, startDate, endDate);
+            return ExchangeRateConverter.toExchangeRates(exchangeRates);
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, String.format("Error fetching historical exchange rates for %s", currencyCode), e);
+            throw new RuntimeException("Failed to fetch historical exchange rates for " + currencyCode, e);
+        }
+    }
+
+    private void validateDates(LocalDate startDate, LocalDate endDate) {
+        if (startDate.isAfter(endDate)) {
+            throw new IllegalArgumentException("Start date cannot be after the end date.");
+        }
     }
 }
