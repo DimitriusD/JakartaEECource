@@ -2,12 +2,12 @@ package com.kpi.jakartaeecource.servlet.dto;
 
 public class MemberDto {
 
-    private int id;
-    private String firstName;
-    private String lastName;
-    private int age;
-    private String jobTitle;
-    private String description;
+    private final int id;
+    private final String firstName;
+    private final String lastName;
+    private final int age;
+    private final String jobTitle;
+    private final String description;
 
     public MemberDto(int id,
                      String firstName,

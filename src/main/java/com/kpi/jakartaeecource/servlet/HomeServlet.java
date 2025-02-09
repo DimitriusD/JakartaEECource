@@ -3,6 +3,7 @@ package com.kpi.jakartaeecource.servlet;
 import com.kpi.jakartaeecource.dao.MemberDAO;
 import com.kpi.jakartaeecource.model.Member;
 import com.kpi.jakartaeecource.servlet.converter.MemberConverter;
+import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,7 +16,8 @@ import java.util.List;
 @WebServlet(name = "homeServlet", value = "/home")
 public class HomeServlet extends HttpServlet {
 
-    private final MemberDAO memberDAO = new MemberDAO();
+    @Inject
+    private MemberDAO memberDAO;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

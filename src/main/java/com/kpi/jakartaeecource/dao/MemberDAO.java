@@ -1,16 +1,21 @@
 package com.kpi.jakartaeecource.dao;
 
 import com.kpi.jakartaeecource.model.Member;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Named
+@ApplicationScoped
 public class MemberDAO {
 
-    private static final List<Member> MEMBERS = new ArrayList<>();
+    private final List<Member> members = new ArrayList<>();
 
-    static {
-        MEMBERS.add(new Member(
+
+    public MemberDAO() {
+        members.add(new Member(
                 1,
                 "Dmytro",
                 "Kovbasa",
@@ -19,7 +24,7 @@ public class MemberDAO {
                 ""
 
         ));
-        MEMBERS.add(new Member(
+        members.add(new Member(
                 2,
                 "Artur",
                 "Lavrov",
@@ -27,7 +32,7 @@ public class MemberDAO {
                 "Dev",
                 ""
         ));
-        MEMBERS.add(new Member(
+        members.add(new Member(
                 3,
                 "Dmytro",
                 "Megeda",
@@ -38,15 +43,10 @@ public class MemberDAO {
     }
 
     public List<Member> getAllMembers() {
-        return MEMBERS;
+        return members;
     }
 
     public Member getMemberById(int id) {
-        for (Member m : MEMBERS) {
-            if (m.getId() == id) {
-                return m;
-            }
-        }
-        return null;
+        return members.stream().filter(m -> m.getId() == id).findFirst().orElse(null);
     }
 }
