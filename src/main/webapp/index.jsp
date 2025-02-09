@@ -1,4 +1,4 @@
 <%@ page session="false" %>
 <%
-  response.sendRedirect(request.getContextPath() + "/home");
+  response.sendRedirect(request.getContextPath() + "/login");
 %>
