@@ -13,6 +13,10 @@ public final class MemberConverter {
     }
 
     public static ShortMemberInfoDto toShortMemberInfo(Member member) {
+        if (member == null) {
+            throw new IllegalArgumentException("Member cannot be null");
+        }
+
         return new ShortMemberInfoDto(
                 member.getId(),
                 member.getFirstName(),
@@ -26,6 +30,10 @@ public final class MemberConverter {
     }
 
     public static MemberDto toMemberDto(Member member) {
+        if (member == null) {
+            throw new IllegalArgumentException("Member cannot be null");
+        }
+
         return new MemberDto(
                 member.getId(),
                 member.getFirstName(),
