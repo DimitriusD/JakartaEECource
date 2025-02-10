@@ -24,15 +24,8 @@ public class NbuApiClient {
     private static final String NBU_HISTORICAL_URL = "https://bank.gov.ua/NBU_Exchange/exchange_site?start=%s&end=%s&valcode=%s&sort=exchangedate&order=desc&json";
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd");
 
-    private ObjectMapper objectMapper;
-
     @Inject
-    public NbuApiClient(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
-    }
-
-    public NbuApiClient() {
-    }
+    private ObjectMapper objectMapper;
 
     public List<ExchangeRateDto> fetchCurrentRates() throws IOException {
         String jsonResponse = sendGetRequest(NBU_CURRENT_URL);
