@@ -18,8 +18,13 @@
     <h2 class="error-message">Member not found</h2>
     <%
     } else {
+        String photoUrl = member.getPhotoUrl();
+        if (photoUrl == null || photoUrl.isEmpty()) {
+            photoUrl = request.getContextPath() + "/images/default-avatar.jpg";
+        }
     %>
     <div class="card">
+        <img src="<%= photoUrl %>" alt="Member Photo" class="member-photo">
         <h1><%= member.getFirstName() %> <%= member.getLastName() %></h1>
         <p><strong>Age:</strong> <%= member.getAge() %></p>
         <p><strong>Job Title:</strong> <%= member.getJobTitle() %></p>

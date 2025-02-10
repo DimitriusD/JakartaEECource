@@ -40,7 +40,8 @@ public final class MemberConverter {
                 member.getLastName(),
                 member.getAge(),
                 member.getJobTitle(),
-                member.getFullDescription()
+                member.getFullDescription(),
+                member.getPhotoUrt()
                 );
     }
 }

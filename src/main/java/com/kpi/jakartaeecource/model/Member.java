@@ -8,19 +8,21 @@ public class Member {
     private int age;
     private String jobTitle;
     private String fullDescription;
+    private String photoUrt;
 
     public Member(int id,
                   String firstName,
                   String lastName,
                   int age,
                   String jobTitle,
-                  String fullDescription) {
+                  String fullDescription, String photoUrt) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
         this.jobTitle = jobTitle;
         this.fullDescription = fullDescription;
+        this.photoUrt = photoUrt;
     }
 
     public Member() {
@@ -73,5 +75,13 @@ public class Member {
 
     public void setFullDescription(String fullDescription) {
         this.fullDescription = fullDescription;
+    }
+
+    public String getPhotoUrt() {
+        return photoUrt;
+    }
+
+    public void setPhotoUrt(String photoUrt) {
+        this.photoUrt = photoUrt;
     }
 }

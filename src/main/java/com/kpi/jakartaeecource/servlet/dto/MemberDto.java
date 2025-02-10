@@ -9,18 +9,22 @@ public class MemberDto {
     private final String jobTitle;
     private final String description;
 
+    private final String photoUrl;
+
     public MemberDto(int id,
                      String firstName,
                      String lastName,
                      int age,
                      String jobTitle,
-                     String description) {
+                     String description,
+                     String photoUrl) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
         this.jobTitle = jobTitle;
         this.description = description;
+        this.photoUrl = photoUrl;
     }
 
     public int getId() {
@@ -45,5 +49,9 @@ public class MemberDto {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
     }
 }

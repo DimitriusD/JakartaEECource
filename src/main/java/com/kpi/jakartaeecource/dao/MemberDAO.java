@@ -26,9 +26,9 @@ public class MemberDAO {
     }
 
     private void initSampleData() {
-        members.add(new Member(1, "Dmytro", "Kovbasa", 28, "Dev", ""));
-        members.add(new Member(2, "Artur", "Lavrov", 28, "Dev", ""));
+        members.add(new Member(1, "Dmytro", "Kovbasa", 28, "Dev", "", ""));
+        members.add(new Member(2, "Artur", "Lavrov", 28, "Dev", "", ""));
         members.add(new Member(3, "Dmytro", "Meheda", 24, "Dev",
-                "Dmytro Meheda is a skilled software developer with a strong background in .NET (C#) development and a growing interest in Kotlin."));
+                "Dmytro Meheda is a skilled software developer with a strong background in .NET (C#) development and a growing interest in Kotlin.", ""));
     }
 }

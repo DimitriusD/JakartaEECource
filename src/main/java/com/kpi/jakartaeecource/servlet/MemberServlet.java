@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.logging.Logger;
 
 @WebServlet(name = "memberServlet", value = "/member")
 public class MemberServlet extends HttpServlet {
