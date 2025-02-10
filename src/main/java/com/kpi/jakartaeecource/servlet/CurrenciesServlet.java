@@ -2,6 +2,7 @@ package com.kpi.jakartaeecource.servlet;
 
 import com.kpi.jakartaeecource.model.ExchangeRate;
 import com.kpi.jakartaeecource.service.ExchangeRateService;
+import com.kpi.jakartaeecource.utils.LoggerUtil;
 import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,8 +18,6 @@ import java.util.logging.Logger;
 @WebServlet(name = "сurrenciesServlet", value = "/currencies")
 public class CurrenciesServlet extends HttpServlet {
 
-    private static final Logger LOGGER = Logger.getLogger(CurrenciesServlet.class.getName());
-
     @Inject
     private ExchangeRateService rateService;
 
@@ -29,7 +28,7 @@ public class CurrenciesServlet extends HttpServlet {
             req.setAttribute("todayRates", todayRates);
             req.getRequestDispatcher("/WEB-INF/views/currencyRates.jsp").forward(req, resp);
         } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "Error retrieving exchange rates", e);
+            LoggerUtil.logError(getClass(), "Error retrieving exchange rates", e);
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Unable to fetch exchange rates.");
         }
 

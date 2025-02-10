@@ -4,21 +4,17 @@ import com.kpi.jakartaeecource.api.NbuApiClient;
 import com.kpi.jakartaeecource.api.converter.ExchangeRateConverter;
 import com.kpi.jakartaeecource.api.dto.ExchangeRateDto;
 import com.kpi.jakartaeecource.model.ExchangeRate;
+import com.kpi.jakartaeecource.utils.LoggerUtil;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @Named
 @ApplicationScoped
 public class ExchangeRateService {
-
-    private static final Logger LOGGER = Logger.getLogger(ExchangeRateService.class.getName());
 
     private NbuApiClient nbuApiClient;
 
@@ -35,7 +31,7 @@ public class ExchangeRateService {
             List<ExchangeRateDto> exchangeRates = nbuApiClient.fetchCurrentRates();
             return ExchangeRateConverter.toExchangeRates(exchangeRates);
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Error fetching current exchange rates", e);
+            LoggerUtil.logError(getClass(), "Error fetching current exchange rates", e);
             throw new RuntimeException("Failed to fetch current exchange rates", e);
         }
     }
@@ -47,7 +43,7 @@ public class ExchangeRateService {
             List<ExchangeRateDto> exchangeRates = nbuApiClient.fetchHistoricalRates(currencyCode, startDate, endDate);
             return ExchangeRateConverter.toExchangeRates(exchangeRates);
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, String.format("Error fetching historical exchange rates for %s", currencyCode), e);
+            LoggerUtil.logError(getClass(), String.format("Error fetching historical exchange rates for %s", currencyCode), e);
             throw new RuntimeException("Failed to fetch historical exchange rates for " + currencyCode, e);
         }
     }

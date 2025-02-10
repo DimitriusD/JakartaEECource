@@ -2,6 +2,7 @@ package com.kpi.jakartaeecource.servlet;
 
 import com.kpi.jakartaeecource.model.ExchangeRate;
 import com.kpi.jakartaeecource.service.ExchangeRateService;
+import com.kpi.jakartaeecource.utils.LoggerUtil;
 import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -19,7 +20,6 @@ import java.util.logging.Logger;
 @WebServlet(name = "currencyHistoryServlet", value = "/history")
 public class CurrencyHistoryServlet extends HttpServlet {
 
-    private static final Logger LOGGER = Logger.getLogger(CurrencyHistoryServlet.class.getName());
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd");
 
     @Inject
@@ -53,7 +53,7 @@ public class CurrencyHistoryServlet extends HttpServlet {
 
             request.getRequestDispatcher("/WEB-INF/views/history.jsp").forward(request, response);
         } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, String.format("Error fetching historical exchange rates for %s", currencyCode), e);
+            LoggerUtil.logError(getClass(), String.format("Error fetching historical exchange rates for %s", currencyCode), e);
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to fetch exchange rates.");
         }
 

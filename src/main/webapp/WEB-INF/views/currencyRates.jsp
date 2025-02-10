@@ -11,6 +11,8 @@
 
 <h2>Курси валют</h2>
 
+<%-- Declare todayRates explicitly --%>
+<c:set var="todayRates" value="${requestScope.todayRates}" />
 <c:if test="${not empty todayRates}">
     <table class="currency-table">
         <tr>
@@ -20,7 +22,7 @@
         <c:forEach var="rate" items="${todayRates}">
             <tr>
                 <td class="currency-info">
-                    <img src="https://flagcdn.com/h40/${rate.currencyCode.toLowerCase()}.png"
+                    <img src="https://raw.githubusercontent.com/Lissy93/currency-flags/master/assets/flags_svg/${rate.currencyCode.toLowerCase()}.svg"
                          class="currency-flag"
                          alt="${rate.currencyCode}"/>
                     <div class="currency-text">
