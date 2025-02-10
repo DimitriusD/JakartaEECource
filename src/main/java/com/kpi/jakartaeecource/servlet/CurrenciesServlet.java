@@ -16,13 +16,17 @@ import java.util.List;
 @WebServlet(name = "currenciesServlet", value = "/currencies")
 public class CurrenciesServlet extends HttpServlet {
 
+    private ExchangeRateService exchangeRateService;
+
     @Inject
-    private ExchangeRateService rateService;
+    public void setExchangeRateService(ExchangeRateService exchangeRateService) {
+        this.exchangeRateService = exchangeRateService;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
-            List<ExchangeRate> todayRates = rateService.getExchangeRate();
+            List<ExchangeRate> todayRates = exchangeRateService.getExchangeRate();
             req.setAttribute("todayRates", todayRates);
         } catch (Exception e) {
             LoggerUtil.logError(getClass(), "Error retrieving exchange rates", e);
