@@ -24,7 +24,10 @@
     document.addEventListener("DOMContentLoaded", function () {
         var historyRates = [
             <c:forEach var="rate" items="${historyRates}" varStatus="loop">
-            { date: "${rate.exchangeDate}", rate: ${rate.rate} }<c:if test="${!loop.last}">,</c:if>
+                {
+                    date: "<c:out value='${rate.exchangeDate}'/>",
+                    rate: <c:out value='${rate.rate}'/>
+                }<c:if test="${!loop.last}">,</c:if>
             </c:forEach>
         ];
 

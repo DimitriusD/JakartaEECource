@@ -36,6 +36,12 @@ public class LoginServlet extends HttpServlet {
               String password = request.getParameter("password");
 
               User user = userDAO.getByUserNameAndPass(username, password);
+              
+              if (user == null) {
+                  request.setAttribute("loginError", "Invalid credentials!");
+                  request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);
+                  return;
+              }
 
               if (user.isAdmin()) {
                   HttpSession session = request.getSession(true);
