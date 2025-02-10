@@ -8,7 +8,6 @@ import com.kpi.jakartaeecource.utils.LoggerUtil;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -16,21 +15,14 @@ import java.util.List;
 @ApplicationScoped
 public class ExchangeRateService {
 
-    private NbuApiClient nbuApiClient;
-
-    public ExchangeRateService() {
-    }
-
     @Inject
-    public ExchangeRateService(NbuApiClient nbuApiClient) {
-        this.nbuApiClient = nbuApiClient;
-    }
+    private NbuApiClient nbuApiClient;
 
     public List<ExchangeRate> getExchangeRate() {
         try {
             List<ExchangeRateDto> exchangeRates = nbuApiClient.fetchCurrentRates();
             return ExchangeRateConverter.toExchangeRates(exchangeRates);
-        } catch (IOException e) {
+        } catch (Exception e) {
             LoggerUtil.logError(getClass(), "Error fetching current exchange rates", e);
             throw new RuntimeException("Failed to fetch current exchange rates", e);
         }
@@ -42,7 +34,7 @@ public class ExchangeRateService {
 
             List<ExchangeRateDto> exchangeRates = nbuApiClient.fetchHistoricalRates(currencyCode, startDate, endDate);
             return ExchangeRateConverter.toExchangeRates(exchangeRates);
-        } catch (IOException e) {
+        } catch (Exception e) {
             LoggerUtil.logError(getClass(), String.format("Error fetching historical exchange rates for %s", currencyCode), e);
             throw new RuntimeException("Failed to fetch historical exchange rates for " + currencyCode, e);
         }
