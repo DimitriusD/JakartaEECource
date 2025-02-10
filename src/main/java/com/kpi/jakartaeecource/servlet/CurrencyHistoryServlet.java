@@ -52,7 +52,5 @@ public class CurrencyHistoryServlet extends HttpServlet {
             LoggerUtil.logError(getClass(), String.format("Error fetching historical exchange rates for %s", currencyCode), e);
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to fetch exchange rates.");
         }
-
     }
-
 }

@@ -24,18 +24,28 @@ public class NbuApiClient {
     private static final String NBU_HISTORICAL_URL = "https://bank.gov.ua/NBU_Exchange/exchange_site?start=%s&end=%s&valcode=%s&sort=exchangedate&order=desc&json";
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd");
 
-    @Inject
     private ObjectMapper objectMapper;
+
+    @Inject
+    public NbuApiClient(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
+
+    public NbuApiClient() {
+        // Default constructor for CDI
+    }
 
     public List<ExchangeRateDto> fetchCurrentRates() throws IOException {
         String jsonResponse = sendGetRequest(NBU_CURRENT_URL);
-        return objectMapper.readValue(jsonResponse, new TypeReference<>() {});
+        return objectMapper.readValue(jsonResponse, new TypeReference<>() {
+        });
     }
 
     public List<ExchangeRateDto> fetchHistoricalRates(String currencyCode, LocalDate startDate, LocalDate endDate) throws IOException {
         String apiUrl = String.format(NBU_HISTORICAL_URL, startDate.format(DATE_FORMATTER), endDate.format(DATE_FORMATTER), currencyCode);
         String jsonResponse = sendGetRequest(apiUrl);
-        return objectMapper.readValue(jsonResponse, new TypeReference<>() {});
+        return objectMapper.readValue(jsonResponse, new TypeReference<>() {
+        });
     }
 
 

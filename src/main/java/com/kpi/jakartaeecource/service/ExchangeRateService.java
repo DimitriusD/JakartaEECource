@@ -15,8 +15,16 @@ import java.util.List;
 @ApplicationScoped
 public class ExchangeRateService {
 
-    @Inject
     private NbuApiClient nbuApiClient;
+
+    @Inject
+    public ExchangeRateService(NbuApiClient nbuApiClient) {
+        this.nbuApiClient = nbuApiClient;
+    }
+
+    public ExchangeRateService() {
+        // Default constructor for CDI
+    }
 
     public List<ExchangeRate> getExchangeRate() {
         try {
