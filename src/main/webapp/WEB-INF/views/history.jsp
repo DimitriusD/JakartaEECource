@@ -12,7 +12,6 @@
 
 <h2>Історія курсу ${currencyCode}</h2>
 
-
 <c:if test="${not empty historyRates}">
     <div id="chart-container">
         <canvas id="currencyChart"></canvas>
@@ -22,9 +21,9 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        var historyRates = [
+        const historyRates = [
             <c:forEach var="rate" items="${historyRates}" varStatus="loop">
-            { date: "${rate.exchangeDate}", rate: ${rate.rate} }<c:if test="${!loop.last}">,</c:if>
+            {date: "${rate.exchangeDate}", rate: ${rate.rate}}<c:if test="${!loop.last}">, </c:if>
             </c:forEach>
         ];
 
@@ -33,10 +32,10 @@
             return;
         }
 
-        var labels = historyRates.map(rate => rate.date);
-        var data = historyRates.map(rate => rate.rate);
+        const labels = historyRates.map(rate => rate.date);
+        const data = historyRates.map(rate => rate.rate);
 
-        var ctx = document.getElementById('currencyChart').getContext('2d');
+        const ctx = document.getElementById('currencyChart').getContext('2d');
 
         new Chart(ctx, {
             type: 'line',

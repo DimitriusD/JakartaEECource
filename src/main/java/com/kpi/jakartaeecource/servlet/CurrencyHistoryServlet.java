@@ -4,18 +4,14 @@ import com.kpi.jakartaeecource.model.ExchangeRate;
 import com.kpi.jakartaeecource.service.ExchangeRateService;
 import com.kpi.jakartaeecource.utils.LoggerUtil;
 import jakarta.inject.Inject;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @WebServlet(name = "currencyHistoryServlet", value = "/history")
 public class CurrencyHistoryServlet extends HttpServlet {
@@ -26,7 +22,7 @@ public class CurrencyHistoryServlet extends HttpServlet {
     private ExchangeRateService exchangeRateService;
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         String currencyCode = request.getParameter("currency");
         String startDateParam = request.getParameter("startDate");
