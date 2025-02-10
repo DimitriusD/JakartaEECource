@@ -24,9 +24,9 @@
             for (ShortMemberInfoDto member : members) {
         %>
         <li class="member-item">
-            <span class="member-firstName"><%= member.getFirstName() %></span>
-            <br>
-            <span class="member-secondName"><%= member.getSecondName() %></span>
+            <div class="member-info">
+                <span class="member-name"><%= member.getFirstName() %><br><%= member.getSecondName() %></span>
+            </div>
 
             <a class="detail-button"
                href="<%= request.getContextPath() %>/member?id=<%= member.getId() %>">
